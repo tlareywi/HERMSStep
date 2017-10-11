@@ -1,5 +1,5 @@
 # HERMSStep
-Plugin for CraftBeerPi to support temperature monitoring of two kettles simultaneously for HERMS process where the HLT is 
+Plugin for CraftBeerPi3 to support temperature monitoring of two kettles simultaneously for HERMS process where the HLT is 
 maintained at temperature x while the mash is recirculated through it until it reaches temperature y. This also gives one 
 indirect control over the rate of temprature change in the mash tun; depending upon the delta between x and y. 
 
