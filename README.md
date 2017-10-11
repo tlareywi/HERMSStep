@@ -19,17 +19,14 @@ Rest: Rest in minutes after hitting Target Temp
 
 CONTROL FLOW
 --------------------------------------------------------------------
+```
 Init -> Recirculation Pump On, HLT On
 
 Begin Loop
-
-__Mash target not reached -> Maintain HLT temp offset
-   
-__Mash target reached -> Pump off, HLT Off, goto Rest
-   
+   Mash target not reached -> Maintain HLT temp offset
+   Mash target reached -> Pump off, HLT Off, goto Rest
 End Loop
 
 Rest -> wait for z minutes
-
 Rest expired -> proceed to next step
-
+```
