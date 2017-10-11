@@ -23,9 +23,9 @@ Init -> Recirculation Pump On, HLT On
 
 Begin Loop
 
-   Mash target not reached -> Maintain HLT temp offset
+__Mash target not reached -> Maintain HLT temp offset
    
-   Mash target reached -> Pump off, HLT Off, goto Rest
+__Mash target reached -> Pump off, HLT Off, goto Rest
    
 End Loop
 
