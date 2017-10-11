@@ -6,10 +6,15 @@ indirect control over the rate of temprature change in the mash tun; depending u
 DATA FIELD DEFINITIONS
 --------------------------------------------------------------------
 HLT: The kettle serving as the hot liquor tank
+
 HLT Offset: Number of degrees above mash tun target to maintain the HLT during step
+
 Mash Tun: The kettle serving as the mash tun
+
 Recirculation Pump: The pump responsible for moving wort through the HLT and back into the mash tun
+
 Target Temp: Desired temperature of mash tun at start of rest
+
 Rest: Rest in minutes after hitting Target Temp
 
 CONTROL FLOW
