@@ -3,7 +3,7 @@ Plugin for CraftBeerPi to support temperature monitoring of two kettles simultan
 maintained at temperature x while the mash is recirculated through it until it reaches temperature y. This also gives one 
 indirect control over the rate of temprature change in the mash tun; depending upon the delta between x and y. 
 
-DATA FIELD DEFINITIONS
+PROPERTIES
 --------------------------------------------------------------------
 HLT: The kettle serving as the hot liquor tank
 
