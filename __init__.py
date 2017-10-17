@@ -16,8 +16,9 @@ class HERMSStep(StepBase):
     mash_tun = StepProperty.Kettle("Mash Tun", description="Kettle in which the mashing takes place")
     hlt = StepProperty.Kettle("HLT", description="Kettle used for heat transfer, hot liquor tank")
     timer = Property.Number("Rest (m)", configurable=True, description="Minutes of rest at target temp")
-    hlt_offset = StepProperty.Number("HLT Offset", configurable=True, description="Temp relative to mash target to maintain in HLT while rising")
+    hlt_offset = Property.Number("HLT Offset", configurable=True, default_value=10, description="Temp relative to mash target to maintain in HLT while rising")
     pump = StepProperty.Actor("Recirculation Pump")
+    ramp_next = Property.Number("Ramp Next", configurable=True, default_value=10, description="Minutes of rest remaining to begin reheating HLT for next step")
 
     def init(self):
         '''
@@ -26,7 +27,7 @@ class HERMSStep(StepBase):
         '''
         # set target tep
         self.set_target_temp(self.target_temp, self.mash_tun)
-	self.set_target_temp(self.target_temp + self.hlt_offset, self.hlt)
+	self.set_target_temp(int(self.target_temp) + int(self.hlt_offset), self.hlt)
         self.actor_on(int(self.pump))
 
     @cbpi.action("Start Timer Now")
@@ -42,7 +43,7 @@ class HERMSStep(StepBase):
     def reset(self):
         self.stop_timer()
         self.set_target_temp(self.target_temp, self.mash_tun)
-	self.set_target_temp(self.target_temp + self.hlt_offset, self.hlt)
+	self.set_target_temp(int(self.target_temp) + int(self.hlt_offset), self.hlt)
 
     def finish(self):
         self.set_target_temp(0, self.mash_tun)
@@ -59,6 +60,11 @@ class HERMSStep(StepBase):
         if self.get_kettle_temp(self.mash_tun) >= int(self.target_temp):
             if self.is_timer_finished() is None:
                 self.start_timer(int(self.timer) * 60)
+		self.set_target_temp(0, self.mash_tun)
+		self.set_target_temp(0, self.hlt)
+
+	if self.timer_remaining() <= int(self.ramp_next):
+	    self.set_target_temp(int(self.target_temp) + int(self.hlt_offset), self.hlt)
 
         # Check if timer finished and go to next step
         if self.is_timer_finished() == True:
