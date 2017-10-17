@@ -15,6 +15,8 @@ __Recirculation Pump__: The pump responsible for moving wort through the HLT and
 
 __Target Temp__: Desired temperature of mash tun at start of rest
 
+__Ramp Next__: Minutes remaining in rest to begin re-heating HLT back to offset temp for next step. Declare 0 if final step.
+
 __Rest__: Rest in minutes after hitting Target Temp
 
 CONTROL FLOW
@@ -28,5 +30,6 @@ Begin Loop
 End Loop
 
 Rest -> wait for z minutes
+Rest Time Remaining < Ramp Next -> Begin to re-heat HLT 
 Rest expired -> proceed to next step
 ```
