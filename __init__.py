@@ -18,7 +18,7 @@ class HERMSStep(StepBase):
     timer = Property.Number("Rest (m)", configurable=True, description="Minutes of rest at target temp")
     hlt_offset = Property.Number("HLT Offset", configurable=True, default_value=10, description="Temp relative to mash target to maintain in HLT while rising")
     pump = StepProperty.Actor("Recirculation Pump")
-    ramp_next = Property.Number("Ramp Next", configurable=True, default_value=10, description="Minutes of rest remaining to begin reheating HLT for next step")
+    ramp_next = Property.Number("Ramp Next (m)", configurable=True, default_value=10, description="Minutes of rest remaining to begin reheating HLT for next step")
 
     def init(self):
         '''
