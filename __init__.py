@@ -63,7 +63,7 @@ class HERMSStep(StepBase):
 		self.set_target_temp(0, self.mash_tun)
 		self.set_target_temp(0, self.hlt)
 
-	if self.timer_remaining() <= int(self.ramp_next):
+	if int(self.timer_remaining()) <= int(self.ramp_next) * 60:
 	    self.set_target_temp(int(self.target_temp) + int(self.hlt_offset), self.hlt)
 
         # Check if timer finished and go to next step
