@@ -16,16 +16,16 @@ class HERMSStep(StepBase):
     mash_tun = StepProperty.Kettle("Mash Tun", description="Kettle in which the mashing takes place")
     hlt = StepProperty.Kettle("HLT", description="Kettle used for heat transfer, hot liquor tank")
     timer = Property.Number("Rest (m)", configurable=True, description="Minutes of rest at target temp")
-    hlt_offset = Property.Number("HLT Offset", configurable=True, default_value=10, description="Temp relative to mash target to maintain in HLT while rising")
+    hlt_offset = Property.Number("HLT Offset", configurable=True, default_value=8, description="Temp relative to mash target to maintain in HLT while rising")
     pump = StepProperty.Actor("Recirculation Pump")
-    ramp_next = Property.Number("Ramp Next (m)", configurable=True, default_value=10, description="Minutes of rest remaining to begin reheating HLT for next step")
+    ramp_next = 10 # Minutes before next step to apply heat back to HLT
 
     def init(self):
         '''
         Initialize Step. This method is called once at the beginning of the step
         :return:
         '''
-        # set target tep
+        # set target temp
         self.set_target_temp(self.target_temp, self.mash_tun)
 	self.set_target_temp(int(self.target_temp) + int(self.hlt_offset), self.hlt)
         self.actor_on(int(self.pump))
