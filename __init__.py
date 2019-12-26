@@ -7,7 +7,9 @@ from modules import cbpi
 
 @cbpi.step
 class HERMSStep(StepBase):
-
+    '''
+    Just put the decorator @cbpi.step on top of a method
+    '''
     # Properties
     target_temp = Property.Number("Target Temp", configurable=True, description="Target Temperature of Mash Step")
     mash_tun = StepProperty.Kettle("Mash Tun", description="Kettle in which the mashing takes place")
@@ -24,7 +26,7 @@ class HERMSStep(StepBase):
         '''
         # set target temp
         self.set_target_temp(self.target_temp, self.mash_tun)
-	    self.set_target_temp(int(self.target_temp) + int(self.hlt_offset), self.hlt)
+	self.set_target_temp(int(self.target_temp) + int(self.hlt_offset), self.hlt)
         self.actor_on(int(self.pump))
 
     @cbpi.action("Start Timer Now")
@@ -40,11 +42,11 @@ class HERMSStep(StepBase):
     def reset(self):
         self.stop_timer()
         self.set_target_temp(self.target_temp, self.mash_tun)
-	    self.set_target_temp(int(self.target_temp) + int(self.hlt_offset), self.hlt)
+	self.set_target_temp(int(self.target_temp) + int(self.hlt_offset), self.hlt)
 
     def finish(self):
         self.set_target_temp(0, self.mash_tun)
-	    self.set_target_temp(0, self.hlt)
+	self.set_target_temp(0, self.hlt)
         self.actor_off(int(self.pump))
 
     def execute(self):
@@ -57,11 +59,11 @@ class HERMSStep(StepBase):
         if self.get_kettle_temp(self.mash_tun) >= int(self.target_temp):
             if self.is_timer_finished() is None:
                 self.start_timer(int(self.timer) * 60)
-		        self.set_target_temp(0, self.mash_tun)
-		        self.set_target_temp(0, self.hlt)
+		self.set_target_temp(0, self.mash_tun)
+		self.set_target_temp(0, self.hlt)
 
-	    if int(self.timer_remaining()) <= int(self.ramp_next) * 60:
-	        self.set_target_temp(int(self.target_temp) + int(self.hlt_offset), self.hlt)
+	if int(self.timer_remaining()) <= int(self.ramp_next) * 60:
+	    self.set_target_temp(int(self.target_temp) + int(self.hlt_offset), self.hlt)
 
         # Check if timer finished and go to next step
         if self.is_timer_finished() == True:
