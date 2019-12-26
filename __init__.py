@@ -3,7 +3,7 @@ import time
 
 from modules.core.props import Property, StepProperty
 from modules.core.step import StepBase
-
+from modules import cbpi
 
 @cbpi.step
 class HERMSStep(StepBase):
@@ -12,15 +12,12 @@ class HERMSStep(StepBase):
     '''
     # Properties
     target_temp = Property.Number("Target Temp", configurable=True, description="Target Temperature of Mash Step")
-    mash_tun = StepProperty.Kettle("Mash Tun", default_value="Mash Tun", description="Kettle in which the mashing takes place")
-    hlt = StepProperty.Kettle("HLT",  default_value="HLT", description="Kettle used for heat transfer, hot liquor tank")
+    mash_tun = StepProperty.Kettle("Mash Tun", description="Kettle in which the mashing takes place")
+    hlt = StepProperty.Kettle("HLT", description="Kettle used for heat transfer, hot liquor tank")
     timer = Property.Number("Rest (m)", configurable=True, description="Minutes of rest at target temp")
     hlt_offset = Property.Number("HLT Offset", configurable=True, default_value=8, description="Temp relative to mash target to maintain in HLT while rising")
-    pump = StepProperty.Actor("Recirculation Pump", default_value="HERMS Pump", description="Pump used to recirculate mash through HERMS coil")
+    pump = StepProperty.Actor("Recirculation Pump", description="Pump used to recirculate mash through HERMS coil")
     ramp_next = 10 # Minutes before next step to apply heat back to HLT
-
-    # BrewFather telemetry (optional)
-    brew_father_url = cbpi.get_config_parameter("brew_father_url", None)
 
     def init(self):
         '''
