@@ -24,8 +24,8 @@ class HERMSStep(StepBase):
         '''
         # set target temp
         self.set_target_temp(self.target_temp, self.mash_tun)
-	    self.set_target_temp(int(self.target_temp) + int(self.hlt_offset), self.hlt)
-
+        self.set_target_temp(int(self.target_temp) + int(self.hlt_offset), self.hlt)
+        
     @cbpi.action("Start Timer Now")
     def start(self):
         '''
@@ -39,11 +39,11 @@ class HERMSStep(StepBase):
     def reset(self):
         self.stop_timer()
         self.set_target_temp(self.target_temp, self.mash_tun)
-	    self.set_target_temp(int(self.target_temp) + int(self.hlt_offset), self.hlt)
+        self.set_target_temp(int(self.target_temp) + int(self.hlt_offset), self.hlt)
 
     def finish(self):
         self.set_target_temp(0, self.mash_tun)
-	    self.set_target_temp(0, self.hlt)
+        self.set_target_temp(0, self.hlt)
 
     def execute(self):
         '''
